@@ -1,6 +1,6 @@
 # LearnSkLearn
 
-Just having some fun with iris dataset
+Just having some fun using SVM with iris dataset
 
 ### To Do:
 - precision, F1 score, etc.
