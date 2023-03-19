@@ -20,12 +20,6 @@ TODO: Describe how to set up the project and its dependencies.
 1. Edit predictor.py to specify the input dataset path and other parameters, if needed.
 2. Run `python predictor.py`. The script will load the model, scaler, and selected features from constants.py, perform predictions on the input dataset, and print the evaluation metrics to the console.
 
-### Evaluate the SVM model
-
-1. Edit evaluation_metrics.py to specify the actual and predicted labels, C value, and seed, if needed.
-2. Create an instance of EvaluationMetrics with the required parameters.
-3. Call the `get_properties` method to obtain a tuple with the evaluation metrics, C value, and seed.
-
 ## Files
 
 - SVM.py: Trains an SVM model using the input dataset and saves it along with the scaler and selected features as pkl files.
