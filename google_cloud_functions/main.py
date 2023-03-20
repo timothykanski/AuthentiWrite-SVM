@@ -1,29 +1,24 @@
-# lambda.py
-
-import json
+import os
+from flask import jsonify, request
 import numpy as np
-from constants import MODEL_BASE64, SCALER_BASE64, SELECTED_FEATURES_BASE64
 from utils import run_svm_prediction, base64_to_object
 
 
-def lambda_predictor(event, context):
+def predict(request):
     # Get the feature matrix from the request body
     # Format of body must be { "features": [0.1, 0.2, 0.3, 0.4] }
 
     try:
-        data = json.loads(event["body"])
+        data = request.get_json()
         X = np.array(data["features"]).reshape(1, -1)
     except Exception as e:
         print(f"Error parsing request body: {e}")
-        return {
-            "statusCode": 400,
-            "body": json.dumps({"error": "Invalid request body"}),
-        }
+        return jsonify({"error": "Invalid request body"}), 400
 
-    # Get the model, scaler, and selected_features from constants.py
-    loaded_svm_model = base64_to_object(MODEL_BASE64)
-    scaler = base64_to_object(SCALER_BASE64)
-    selected_features = base64_to_object(SELECTED_FEATURES_BASE64)
+    # Get the model, scaler, and selected_features from environment variables
+    loaded_svm_model = base64_to_object(os.environ.get('MODEL_BASE64'))
+    scaler = base64_to_object(os.environ.get('SCALER_BASE64'))
+    selected_features = base64_to_object(os.environ.get('SELECTED_FEATURES_BASE64'))
 
     # Create a new feature matrix with only the selected features
     X_selected = X[:, selected_features]
@@ -40,4 +35,4 @@ def lambda_predictor(event, context):
     else:
         result = {"result": "Human"}
 
-    return {"statusCode": 200, "body": json.dumps(result)}
+    return jsonify(result), 200
