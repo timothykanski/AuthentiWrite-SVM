@@ -1,10 +1,6 @@
-# LearnSkLearn
+# AuthentiWrite SVM
 
 SVM Machine learning for Authorship Attribution (specifcally for ChatGPT vs human)
-
-## Setup
-
-TODO: Describe how to set up the project and its dependencies.
 
 ## Usage
 
